@@ -1,0 +1,71 @@
+{
+  "title": "JavaScript Closures Quiz",
+  "passing_score": 70,
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple_choice",
+      "text": "What is a closure in JavaScript?",
+      "options": [
+        "A function that is passed as an argument to another function",
+        "A function that keeps access to the variables of its outer scope after that scope has finished executing",
+        "A variable declared with the const keyword",
+        "A special built-in object that stores all global variables"
+      ],
+      "correct_index": 1,
+      "explanation": "A closure is a function bundled with (and remembering) the variables from its lexical scope, even after the outer function returns."
+    },
+    {
+      "id": "q2",
+      "type": "multiple_choice",
+      "text": "Which statement correctly describes what a closure captures?",
+      "options": [
+        "A copy of the value at the time the inner function is created",
+        "A reference to the variable binding, so later changes are visible",
+        "Only primitive values, never objects",
+        "The outer function's return value"
+      ],
+      "correct_index": 1,
+      "explanation": "Closures capture the binding (a reference to the variable), not the value at creation time — that's why the loop trap happens."
+    },
+    {
+      "id": "q3",
+      "type": "multiple_choice",
+      "text": "Why does `var` in the classic loop trap make all closures log the same final value?",
+      "options": [
+        "Because `var` is not hoisted",
+        "Because all closures share a single function-scoped `var` binding that ends at the loop's final value",
+        "Because closures are optimised away in loops",
+        "Because `var` cannot be captured by closures"
+      ],
+      "correct_index": 1,
+      "explanation": "`var` is function-scoped, so every iteration uses the same binding; using `let` gives each iteration its own binding."
+    },
+    {
+      "id": "q4",
+      "type": "multiple_choice",
+      "text": "Which is a common use of closures?",
+      "options": [
+        "Encapsulating private state",
+        "Creating global variables",
+        "Disabling garbage collection",
+        "Replacing all classes"
+      ],
+      "correct_index": 0,
+      "explanation": "Closures are commonly used to hide internal state and expose only a controlled public API."
+    },
+    {
+      "id": "q5",
+      "type": "multiple_choice",
+      "text": "An arrow function defined inside another function captures which `this`?",
+      "options": [
+        "The global `this`",
+        "The `this` of the enclosing (lexical) scope at the point it is written",
+        "The `this` of where the function is called",
+        "`null` always"
+      ],
+      "correct_index": 1,
+      "explanation": "Arrow functions do not have their own `this`; they close over the `this` from the surrounding lexical scope."
+    }
+  ]
+}

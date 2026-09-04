@@ -1,0 +1,337 @@
+@import "tailwindcss";
+
+/*
+  Codempress design system — centralized tokens.
+  Pop-art pastel theme: light lavender-purple base with candy / baby-pink pops.
+  Soft, playful, "sticker" shadows, bold rounded shapes and vibrant gradients.
+*/
+:root {
+  --background: #fbf4ff;      /* light lavender */
+  --foreground: #3b2357;      /* deep royal purple */
+
+  --surface: #ffffff;
+  --surface-2: #fdebf8;       /* baby-pink tint */
+  --surface-3: #f4e8ff;       /* lavender tint */
+
+  --line: #ecd9fb;            /* lavender border */
+  --line-strong: #d6b4f2;     /* stronger lavender */
+
+  --muted: #7a5ea6;           /* readable purple-gray */
+  --faint: #a58bc9;           /* faint lavender */
+
+  --accent: #ec4899;          /* baby / candy pink */
+  --accent-soft: #f76cb2;     /* brighter pink */
+  --accent-dim: rgba(236, 72, 153, 0.5);
+
+  --accent-2: #8b5cf6;        /* violet pop */
+  --accent-2-soft: #a78bfa;
+
+  /* Pop-art "sticker" palette */
+  --pop-pink: #ff7fc0;
+  --pop-violet: #a06bff;
+  --pop-shadow: #d9b6ff;
+  --pop-shadow-pink: #ffc2e4;
+}
+
+/* Remap the default Tailwind scales so literal slate / blue / purple classes
+   (used across the app) resolve to the light-purple + baby-pink palette. */
+@theme {
+  /* slate -> pastel purple/lavender (inverted: high shades = light bg/borders) */
+  --color-slate-50: #ffffff;
+  --color-slate-100: #3b2357;
+  --color-slate-200: #4e3375;
+  --color-slate-300: #64498f;
+  --color-slate-400: #7a5ea6;
+  --color-slate-500: #8a6fb3;
+  --color-slate-600: #b290dc;
+  --color-slate-700: #d6b4f2;
+  --color-slate-800: #f0e3ff;
+  --color-slate-900: #ffffff;
+  --color-slate-950: #fbf4ff;
+
+  /* blue -> violet (accent family) */
+  --color-blue-50: #f6f1ff;
+  --color-blue-100: #ece2ff;
+  --color-blue-200: #dbc8ff;
+  --color-blue-300: #c4aaff;
+  --color-blue-400: #a78bfa;
+  --color-blue-500: #8b5cf6;
+  --color-blue-600: #7c3aed;
+  --color-blue-700: #6d28d9;
+  --color-blue-800: #5b21b6;
+  --color-blue-900: #4c1d95;
+
+  /* purple -> baby / candy pink (pop accent family) */
+  --color-purple-50: #fef0f7;
+  --color-purple-100: #fddcec;
+  --color-purple-200: #fcbfdd;
+  --color-purple-300: #fba3d0;
+  --color-purple-400: #f97bbd;
+  --color-purple-500: #ec4899;
+  --color-purple-600: #db2777;
+  --color-purple-700: #be185d;
+  --color-purple-800: #9d174d;
+  --color-purple-900: #831843;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-dim: var(--accent-dim);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-card: 1.25rem;      /* 20px */
+  --radius-pill: 9999px;
+
+  --shadow-card: 0 1px 2px rgba(93, 40, 150, 0.08),
+    0 10px 30px -12px rgba(160, 107, 255, 0.35);
+  --shadow-glow: 0 0 0 1px rgba(255, 127, 192, 0.35),
+    0 12px 34px -10px rgba(236, 72, 153, 0.45);
+  --shadow-pop: 6px 6px 0 var(--pop-shadow);
+}
+
+/* Pop-art gradient page background with soft pastel blobs */
+body {
+  background: #fbf4ff;
+  background-image:
+    radial-gradient(38rem 38rem at 8% -8%, rgba(255, 181, 226, 0.55), transparent 60%),
+    radial-gradient(34rem 34rem at 98% 4%, rgba(197, 161, 255, 0.5), transparent 62%),
+    radial-gradient(42rem 42rem at 50% 110%, rgba(255, 214, 240, 0.45), transparent 65%),
+    linear-gradient(180deg, #fbf4ff 0%, #fdf0fb 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reusable component classes (design-system primitives)               */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Card — soft sticker with a hard pop shadow */
+  .card {
+    @apply rounded-3xl border-2 border-line bg-surface/90;
+    box-shadow: 6px 6px 0 var(--pop-shadow);
+  }
+  .card-hover {
+    @apply transition;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 8px 8px 0 var(--pop-shadow-pink);
+    border-color: var(--line-strong);
+  }
+  .card-inset {
+    @apply rounded-2xl border border-line bg-surface-3/70;
+  }
+
+  /* Buttons */
+  .btn,
+  .btn-primary,
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2
+      text-sm font-semibold transition disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    color: #fff;
+    background-image: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    box-shadow: 4px 4px 0 var(--pop-shadow-pink);
+  }
+  .btn-primary:hover {
+    background-image: linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-2-soft) 100%);
+    transform: translateY(-1px);
+    box-shadow: 5px 5px 0 var(--pop-shadow-pink);
+  }
+  .btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 2px 2px 0 var(--pop-shadow-pink);
+  }
+  .btn-ghost {
+    border: 2px solid var(--line-strong);
+    color: var(--foreground);
+    background: var(--surface);
+  }
+  .btn-ghost:hover {
+    color: var(--foreground);
+    background-color: var(--surface-3);
+    border-color: var(--accent-2);
+    box-shadow: 4px 4px 0 var(--pop-shadow);
+  }
+  .btn-sm {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+    font-size: 0.75rem;
+  }
+
+  /* Badges / pills */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full border text-sm;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm
+      bg-surface-2/70 border-line-strong text-muted;
+  }
+
+  /* Stat tile — candy tinted */
+  .stat {
+    @apply rounded-3xl border-2 border-line bg-surface/90 p-5;
+    box-shadow: 4px 4px 0 var(--pop-shadow);
+  }
+  .stat:hover {
+    box-shadow: 5px 5px 0 var(--pop-shadow-pink);
+  }
+  .stat-label {
+    @apply text-xs uppercase tracking-wide text-faint;
+  }
+
+  /* Form field */
+  .input {
+    @apply w-full rounded-2xl border-2 border-line bg-surface px-4 py-2.5
+      text-sm text-foreground outline-none transition placeholder:text-faint
+      focus:border-accent-2 focus:ring-4 focus:ring-accent/15;
+  }
+
+  /* Progress bar track */
+  .progress {
+    @apply h-2 w-full overflow-hidden rounded-full bg-surface-3;
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .progress-fill {
+    @apply h-full rounded-full transition-all;
+    background-image: linear-gradient(90deg, var(--pop-violet), var(--accent));
+  }
+}
+
+/* Utility: hide scrollbar for horizontal nav on mobile if needed */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Markdown rendering for lessons (content library) — light pastel */
+.lesson-md {
+  color: var(--foreground);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.lesson-md h1,
+.lesson-md h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.75rem;
+  border-bottom: 1px solid rgba(214, 180, 242, 0.7);
+  padding-bottom: 0.4rem;
+}
+.lesson-md h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+}
+.lesson-md h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem 0 0.4rem;
+}
+.lesson-md p {
+  margin: 0.75rem 0;
+}
+.lesson-md ul,
+.lesson-md ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+.lesson-md ul {
+  list-style: disc;
+}
+.lesson-md ol {
+  list-style: decimal;
+}
+.lesson-md li {
+  margin: 0.3rem 0;
+}
+.lesson-md a {
+  color: var(--accent-2);
+  text-decoration: underline;
+}
+.lesson-md code {
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.25);
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: #be185d;
+}
+.lesson-md pre {
+  background: #faf4ff;
+  border: 1px solid rgba(214, 180, 242, 0.8);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.lesson-md pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #4e3375;
+  font-size: 0.85rem;
+}
+.lesson-md blockquote {
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: var(--foreground);
+  background: rgba(253, 235, 248, 0.7);
+  border-radius: 0 0.5rem 0.5rem 0;
+  opacity: 0.95;
+}
+.lesson-md strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+.lesson-md table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.lesson-md th,
+.lesson-md td {
+  border: 1px solid rgba(214, 180, 242, 0.8);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.lesson-md th {
+  background: var(--surface-3);
+  font-weight: 600;
+}
+.lesson-md hr {
+  border: 0;
+  border-top: 1px solid rgba(214, 180, 242, 0.7);
+  margin: 1.5rem 0;
+}
+
+/* Gradient headline text for a playful pop-art pop */
+.text-pop {
+  background-image: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
